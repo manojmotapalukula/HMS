@@ -1,0 +1,53 @@
+{% extends 'navigationbar.html'%}
+{% load static %}
+{% block body %}
+{% if error == "no" %}
+    <script>
+        alert('Appointment Added successfully');
+            window.location = ('{% url 'view_appointment' %}')
+    </script>
+{% endif %}
+    
+{% if error == "yes" %}
+    <script>
+        alert('Invalid Login Credentials');
+    </script>
+    {% endif %}
+
+    <div class="container">
+
+        
+    <h2 class="text-center">Add Appointment</h1>
+        <form method="post">
+            {% csrf_token %}
+            
+            <label>Doctor Name</label>
+            <select name = "doctor">
+                
+                {% for i in doctor %}
+                <option value={{i.name}} >{{i.name}} {{i.id}}</option>
+                    
+                {% endfor %}
+                    
+            </select><br><br>
+            <label>Patient Name</label>
+            <select name = "patient">
+                
+                {% for i in patient %}
+                <option value={{i.name}} >{{i.name}} {{i.id}}</option>
+                    
+                {% endfor %}
+                    
+            </select><br><br>
+            <label>Date</label>
+            <input type="date" class="form-control" name="date1"><br>
+            <label>Time</label>
+            <input type="time" class="form-control" name="time1"><br>
+            
+            <input type="submit" value="Add Appointment" class="form-control btn btn-primary" >
+    
+        </form>
+    
+        
+    </div>
+{% endblock %}
